@@ -1,6 +1,11 @@
 <html>
-<!-- add style to form in wordpress -->
 <body>
+
+<!-- 
+    add style to form in wordpress style sheet, 
+    remove html and body open and close tags, 
+    use shortcode php to integrate php code into static page 
+-->
 
 <form action="SendMessage.php" method="post">
 To Number: <input type="text" name="ToNumber"><br>
@@ -18,21 +23,23 @@ $MediaURL = ""; //url for image like heart in example ?
 // Get the PHP helper library from twilio.com/docs/php/install
 require_once('/path/to/twilio-php/Services/Twilio.php'); // Loads the library
 
-//-------------------------------------- How to make a call from AccountIDToke.php to grab code
+//-------------------------------------- 
+// How to make a call from AccountIDToke.php to grab code 
 // Your Account Sid and Auth Token from twilio.com/user/account - check gitingore code
 require_once('/AccountIDToke.php'); // loads hidden Sid and Auth token variables
 $sid = $_GET['sid'];
 $token = $_GET['token'];
-//-----------------------------------------------------------------
+//--------------------------------------
 
+
+// actually send the message
 $client = new Services_Twilio($sid, $token);
-
 $client->account->messages->sendMessage("$FromNumber", "$ToNumber", "$UserMessage", "$MediaURL");
 
-
+// let user know what message has been sent
 echo "Your message -". $UserMessage . "- to phone number ". $ToNumber . "has been sent!";
-
 ?>
+
 
 </body>
 </html> 
